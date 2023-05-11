@@ -1,0 +1,19 @@
+.loading {
+  svg {
+    animation-name: aRotate;
+    animation-duration: 250ms;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes aRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

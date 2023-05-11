@@ -1,0 +1,65 @@
+:root {
+  --color-white: #fff;
+  --color-black: #000;
+  --color-yellow: #f3e26f;
+  --color-secondary_linear: linear-gradient(180deg, #f9ec73 -20.83%, #e8cc5a 121.3%);
+  --color-bg_top_bottom: #f3e26f;
+  --color-linear: linear-gradient(360deg, #2c57d5 -23.63%, #428dfa 111.3%);
+  --color-links: #1890ff;
+
+  --color-primary-1: linear-gradient(0deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), #3f86f5;
+  --color-primary-2: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #3f86f5;
+  --color-primary-3: linear-gradient(0deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), #3f86f5;
+  --color-primary-4: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), #3f86f5;
+  --color-primary-5: #3f86f5;
+  --color-primary-6: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), #3f86f5;
+  --color-primary-7: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), #3f86f5;
+
+  --color-secondary-1: linear-gradient(0deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), #e8d15a;
+  --color-secondary-2: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #e8d15a;
+  --color-secondary-3: linear-gradient(0deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), #e8d15a;
+  --color-secondary-4: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), #e8d15a;
+  --color-secondary-5: #e8d15a;
+  --color-secondary-6: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), #e8d15a;
+  --color-secondary-7: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), #e8d15a;
+
+  --color-accent-1: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #ed7361;
+  --color-accent-2: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #ed7361;
+  --color-accent-3: linear-gradient(0deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), #ed7361;
+  --color-accent-4: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), #ed7361;
+  --color-accent-5: #ed7361;
+  --color-accent-6: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), #ed7361;
+  --color-accent-7: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), #ed7361;
+
+  --color-gray-1: #f5f5f7;
+  --color-gray-2: #e7e7ec;
+  --color-gray-3: #d9d9e0;
+  --color-gray-4: #cbcbd5;
+  --color-gray-5: #a9a9ba;
+  --color-gray-6: #696984;
+  --color-gray-7: #2c2c37;
+
+  --color-success-1: linear-gradient(0deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), #4caf50;
+  --color-success-2: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #4caf50;
+  --color-success-3: linear-gradient(0deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), #4caf50;
+  --color-success-4: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), #4caf50;
+  --color-success-5: #4caf50;
+  --color-success-6: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), #4caf50;
+  --color-success-7: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), #4caf50;
+
+  --color-warning-1: linear-gradient(0deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), #ffc107;
+  --color-warning-2: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #ffc107;
+  --color-warning-3: linear-gradient(0deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), #ffc107;
+  --color-warning-4: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), #ffc107;
+  --color-warning-5: #ffc107;
+  --color-warning-6: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), #ffc107;
+  --color-warning-7: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), #ffc107;
+
+  --color-error-1: linear-gradient(0deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), #f44336;
+  --color-error-2: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #f44336;
+  --color-error-3: linear-gradient(0deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), #f44336;
+  --color-error-4: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), #f44336;
+  --color-error-5: #f44336;
+  --color-error-6: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), #f44336;
+  --color-error-7: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), #f44336;
+}
