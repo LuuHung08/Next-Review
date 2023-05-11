@@ -32,3 +32,15 @@ npm run dev or yarn dev
 
 7. Processing CSS: https://sass-lang.com/guide
 ```
+
+## Docs Work
+
+1. NextJS multilingual Project
+
+2. Handle Token refresh token
+
+3. Docker build
+
+4. Google maps (Draw a circle with a radius of 50km around that location)
+
+5. CI/CD

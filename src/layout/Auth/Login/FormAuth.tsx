@@ -1,30 +1,26 @@
 import React from 'react';
 import Image from 'next/image';
 import style from './formAuth.module.scss';
-import { ShowPass, HidePass } from '@components/Icons';
 import Button from '@components/Button';
-import { ShowProps } from './type';
 import { useTranslation } from 'next-i18next';
 
 export interface FormAuthProps {
-  show: ShowProps;
   valLogin: {
     username: string;
     password: string;
     isErrorUserName: string;
     isErrorPassword: string;
   };
+  isLoading: boolean;
   handleChangeUserName: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: () => void;
   handleKeyPress: (...args: any[]) => void;
-  setShow: (value: ShowProps) => void;
 }
 
 function FormAuth(props: FormAuthProps) {
-  const { t } = useTranslation(['login']);
-  const { show, valLogin, handleChangeUserName, setShow, handleSubmit, handleKeyPress } = props;
-  const { isShowPass, isLoading } = show;
-  const { username, password, isErrorUserName, isErrorPassword } = valLogin;
+  const { t } = useTranslation('login');
+  const { valLogin, handleChangeUserName, handleSubmit, handleKeyPress, isLoading } = props;
+  const { username, isErrorUserName } = valLogin;
 
   return (
     <div className={`${style.mainLogin}`}>
@@ -34,13 +30,13 @@ function FormAuth(props: FormAuthProps) {
         </div>
         <h4 className='text-center'>{t('login_title')}</h4>
         <div className={style.formTitle}>
-          <div>Số điện thoại hoặc email</div>
+          <div>{t('login_account')}</div>
           <div className={style.formLogin}>
             <input
               className={style.formInput}
               type='text'
               name='username'
-              placeholder='Nhập số điện thoại hoặc email'
+              placeholder={t('login_input_account')}
               value={username}
               onChange={handleChangeUserName}
               onKeyDown={handleKeyPress}
@@ -52,13 +48,13 @@ function FormAuth(props: FormAuthProps) {
             </div>
           </div>
         </div>
-        <div className={style.formTitle}>
-          <div>Mật khẩu</div>
+        {/* <div className={style.formTitle}>
+          <div>{t('login_pass')}</div>
           <div className={style.formLogin}>
             <input
               className={style.formInput}
               type={isShowPass ? 'text' : 'password'}
-              placeholder='Nhập mật khẩu'
+              placeholder={t('login_input_pass')}
               value={password}
               name='pass'
               onChange={handleChangeUserName}
@@ -85,18 +81,12 @@ function FormAuth(props: FormAuthProps) {
               </div>
             )}
           </div>
-        </div>
+        </div> */}
         <div className={style.buttonLogin}>
           <Button
-            isDisabled={
-              username === '' ||
-              password === '' ||
-              isErrorUserName !== '' ||
-              isErrorPassword !== '' ||
-              isLoading
-            }
+            isDisabled={username === '' || isErrorUserName !== '' || isLoading}
             isLoading={isLoading}
-            text='Đăng nhập'
+            text={t('login_title')}
             handleSubmit={handleSubmit}
             type='submit'
           />

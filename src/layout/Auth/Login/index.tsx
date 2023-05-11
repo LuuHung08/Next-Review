@@ -3,44 +3,43 @@ import { toast } from 'react-toastify';
 import FormAuth from './FormAuth';
 import { useLogin } from './services';
 import { useAuth } from '@store/auth/useAuth';
-import { initShow, initValLogin } from './type';
+import { initValLogin } from './type';
+import { useTranslation } from 'next-i18next';
 
 const Login = () => {
+  const { t } = useTranslation('login');
   const { onLogin } = useAuth();
-  const [show, setShow] = useState(initShow);
   const [valLogin, setValLogin] = useState(initValLogin);
-  const { username, password, isErrorUserName, isErrorPassword } = valLogin;
+  const { username, isErrorUserName } = valLogin;
 
   const requestSignInByEmail = useLogin({
     onSuccess: (r) => {
-      if (!r?.token) {
+      if (!r?.accessToken) {
+        toast.error('Tài khoản hoặc mật khẩu không chính xác', {
+          theme: 'colored',
+        });
         return;
       } else {
         onLogin({
-          id: r?.id,
-          token: r?.token || '',
-          expiredTime: r?.expired_time || 0,
+          token: r?.accessToken || '',
           refreshToken: r?.refreshToken,
         });
-        setShow({ ...show, isLoading: false });
+        toast.success('Đăng nhập thành công', {
+          theme: 'colored',
+        });
       }
     },
     onError: () => {
       toast.error('Tài khoản hoặc mật khẩu không chính xác', {
         theme: 'colored',
       });
-      setShow({ ...show, isLoading: false });
     },
   });
   const handleSubmit = () => {
-    if (username !== '' && password !== '' && !isErrorUserName && !isErrorPassword) {
-      setShow({ ...show, isLoading: true });
-      setTimeout(() => {
-        requestSignInByEmail.run({
-          username: username,
-          password: password || '',
-        });
-      }, 1000);
+    if (username !== '' && !isErrorUserName) {
+      requestSignInByEmail.run({
+        username: username,
+      });
     }
   };
 
@@ -57,13 +56,13 @@ const Login = () => {
       if (value === '') {
         setValLogin((state) => ({
           ...state,
-          isErrorUserName: 'Vui lòng nhập tài khoản',
+          isErrorUserName: t('login_input_account_please'),
         }));
       } else setValLogin((state) => ({ ...state, isErrorUserName: '' }));
       setValLogin((state) => ({ ...state, username: value }));
     } else {
       if (value === '') {
-        setValLogin((state) => ({ ...state, isErrorPassword: 'Vui lòng nhập mật khẩu' }));
+        setValLogin((state) => ({ ...state, isErrorPassword: t('login_input_pass_please') }));
       } else setValLogin((state) => ({ ...state, isErrorPassword: '' }));
       setValLogin((state) => ({ ...state, password: value }));
     }
@@ -71,9 +70,8 @@ const Login = () => {
 
   return (
     <FormAuth
+      isLoading={requestSignInByEmail.loading}
       valLogin={valLogin}
-      show={show}
-      setShow={setShow}
       handleSubmit={handleSubmit}
       handleChangeUserName={handleChangeUserName}
       handleKeyPress={handleKeyPress}

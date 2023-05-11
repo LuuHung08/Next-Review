@@ -5,18 +5,16 @@ const Login = dynamic(() => import('@layout/Auth/Login'));
 
 const SignInPage = () => {
   return (
-    <>
-      <MainLayout>
-        <Login />
-      </MainLayout>
-    </>
+    <MainLayout>
+      <Login />
+    </MainLayout>
   );
 };
 
 export async function getStaticProps({ locale }: any) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['login'])),
+      ...(await serverSideTranslations(locale, ['login', 'home'])),
       // Will be passed to the page component as props
     },
   };

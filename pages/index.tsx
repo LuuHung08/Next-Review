@@ -1,6 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import Home from '@components/Home';
+import Home from '@layout/Home';
 import MainLayout from '@layout/MainLayout';
 import { ReactElement } from 'react';
 
@@ -15,7 +15,7 @@ HomePage.getLayout = function getLayout(page: ReactElement) {
 export async function getStaticProps({ locale }: any) {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale, ['home', 'login'])),
       // Will be passed to the page component as props
     },
   };

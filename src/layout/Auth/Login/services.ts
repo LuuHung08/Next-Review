@@ -8,8 +8,6 @@ interface HandleEvent {
 }
 interface TypeLogin {
   username: string;
-  password: string;
-  old_password?: string | number;
 }
 
 export const useLogin = (options: HandleEvent) => {

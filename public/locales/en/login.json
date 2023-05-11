@@ -1,4 +1,10 @@
 {
   "login_title": "Sign in",
-  "login_redirect": "Sign up"
+  "login_redirect": "Sign up",
+  "login_account": "Login_account",
+  "login_pass": "Login_pass",
+  "login_input_account": "Login_input_account",
+  "login_input_pass": "Login_input_pass",
+  "login_input_account_please": "Login_input_account_please",
+  "login_input_pass_please": "Login_input_pass_please"
 }

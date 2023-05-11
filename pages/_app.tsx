@@ -10,6 +10,8 @@ import ErrorBoundary from '@components/ErrorBoundary';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -36,6 +38,19 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
 
       <ErrorBoundary>
+        <ToastContainer
+          position='top-right'
+          style={{ fontSize: 16, zIndex: 10000 }}
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable={false}
+          pauseOnHover={false}
+          transition={Slide}
+        />
         <RecoilRoot>
           <AppLayout>{getLayout(<Component {...pageProps} />)}</AppLayout>
         </RecoilRoot>

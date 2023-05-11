@@ -2,37 +2,27 @@ import { deleteCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
 import { authAtom, IAuth } from './auth';
-import { useProfile } from '@store/profile/useProfile';
 import { ROUTE_PATH } from '@constant/index';
 
 export const setAuthCookies = ({
-  id,
   token,
   refreshToken,
-  expiredTime,
 }: {
-  id: number;
   token: string;
   refreshToken: string;
-  expiredTime: number;
 }) => {
-  setCookie('locamosfeId', id);
-  setCookie('locamosfeToken', token);
-  setCookie('locamosfeRefreshToken', refreshToken);
-  setCookie('locamosfeExpiredTime', expiredTime);
+  setCookie('nextToken', token);
+  setCookie('refreshToken', refreshToken);
 };
 
 export const deleteAuthCookies = () => {
-  deleteCookie('locamosfeId');
-  deleteCookie('locamosfeToken');
-  deleteCookie('locamosfeRefreshToken');
-  deleteCookie('locamosfeExpiredTime');
+  deleteCookie('nextToken');
+  deleteCookie('refreshToken');
 };
 
 export const useAuth = () => {
   const [auth, setAuth] = useRecoilState(authAtom);
   const router = useRouter();
-  const { requestGetProfile } = useProfile();
   const setAuthData = (data: IAuth): void => {
     setAuth({ ...auth, ...data });
   };
@@ -40,10 +30,8 @@ export const useAuth = () => {
   const onLogout = () => {
     router.push(ROUTE_PATH.SIGN_IN);
     setAuthData({
-      id: 0,
       token: '',
       refreshToken: '',
-      expiredTime: 0,
     });
 
     deleteAuthCookies();
@@ -53,14 +41,10 @@ export const useAuth = () => {
     try {
       setAuthData(data);
       setAuthCookies({
-        id: data.id,
         token: `${data.token}`,
         refreshToken: data.refreshToken || '',
-        expiredTime: data.expiredTime,
       });
-      if (data?.id) {
-        requestGetProfile.run(data?.id, () => router.push(ROUTE_PATH.HOME));
-      }
+      router.push(ROUTE_PATH.HOME);
     } catch (error) {
       console.log(error);
     }

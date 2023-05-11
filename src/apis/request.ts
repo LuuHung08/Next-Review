@@ -63,33 +63,35 @@ const TokenManager = new TokenManagement({
 
     return localInfoObject?.token || '';
   },
-  onRefreshToken() {
-    // const localInfo = window?.localStorage.getItem(ENV.LOCAL_STORAGE_KEY as string);
-    // let localInfoObject;
-    // if (localInfo) {
-    //   localInfoObject = JSON.parse(localInfo);
-    // }
-    // const refreshToken = localInfoObject?.refreshToken;
-    // if (!refreshToken) {
-    //   return done(null);
-    // }
-    // request
-    //   .post('/auth/refreshToken', {
-    //     data: {
-    //       refreshToken,
-    //     },
-    //   })
-    //   .then((result) => {
-    //     if (result.refreshToken && result.accessToken) {
-    //       done(result.accessToken);
-    //       return;
-    //     }
-    //     done(null);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //     done(null);
-    //   });
+  onRefreshToken(done) {
+    const localInfo = window?.localStorage.getItem(ENV.LOCAL_STORAGE_KEY as string);
+    let localInfoObject;
+    if (localInfo) {
+      localInfoObject = JSON.parse(localInfo);
+    }
+    console.log('localInfoObject', localInfoObject);
+    const refreshToken = localInfoObject?.refreshToken;
+    if (!refreshToken) {
+      return done(null);
+    }
+    request
+      .post('/auth/refresh-token', {
+        data: {
+          refreshToken,
+        },
+      })
+      .then((result) => {
+        console.log('result', result);
+        if (result.refreshToken && result.accessToken) {
+          done(result.accessToken);
+          return;
+        }
+        done(null);
+      })
+      .catch((err) => {
+        console.error(err);
+        done(null);
+      });
   },
 });
 

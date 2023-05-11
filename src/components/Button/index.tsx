@@ -3,7 +3,7 @@ import style from './button.module.scss';
 import Loading from '../Loading';
 interface ButtonProps {
   type: 'submit' | 'button' | 'reset';
-  text: string;
+  text: React.ReactNode;
   handleSubmit?: React.MouseEventHandler<HTMLElement>;
   isLoading?: boolean;
   isDisabled?: boolean;
