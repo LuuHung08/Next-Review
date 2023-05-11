@@ -1,9 +1,9 @@
 import { deleteCookie, setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
-import { ROUTE_PATH } from '@utils/common';
 import { authAtom, IAuth } from './auth';
 import { useProfile } from '@store/profile/useProfile';
+import { ROUTE_PATH } from '@constant/index';
 
 export const setAuthCookies = ({
   id,

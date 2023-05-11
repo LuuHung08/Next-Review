@@ -1,8 +1,7 @@
 import { atom } from 'recoil';
 import { ENV } from '@utils/env';
-import { IProfile } from '@utils/type';
 
-export const initialProfile: IProfile = {
+export const initialProfile = {
   id: 0,
   account_branch: null,
   account_name: null,

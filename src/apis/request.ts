@@ -1,6 +1,6 @@
 import { extend } from 'umi-request';
 import { ENV } from 'src/utils/env';
-import TokenManagement from './tokenManagement';
+import TokenManagement from './TokenManagement';
 
 const REQ_TIMEOUT = 25 * 1000;
 export const isDev = ENV.NODE_ENV === 'development';
