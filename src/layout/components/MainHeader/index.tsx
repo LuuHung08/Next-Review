@@ -7,10 +7,16 @@ import Language from './Language';
 import { ROUTE_PATH } from '@constant/index';
 import CustomLink from '@components/CustomLink';
 import { useRouter } from 'next/router';
+import { useAuth } from '@store/auth/useAuth';
 
 const Header = () => {
-  const { t } = useTranslation(['home', 'login']);
+  const { t } = useTranslation('common');
   const router = useRouter();
+  const { onLogout } = useAuth();
+
+  const handleSubmitLogout = () => {
+    onLogout();
+  };
 
   return (
     <header>
@@ -24,10 +30,7 @@ const Header = () => {
               text={<CustomLink href={ROUTE_PATH.HOME}>{t('home.title')}</CustomLink>}
             />
           ) : (
-            <Button
-              type='submit'
-              text={<CustomLink href={ROUTE_PATH.SIGN_IN}>{t('login_title')}</CustomLink>}
-            />
+            <Button type='submit' text={t('logout_title')} handleSubmit={handleSubmitLogout} />
           )}
         </>
       </div>

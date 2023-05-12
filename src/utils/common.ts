@@ -1,7 +1,3 @@
-const ROUTE_PATH = {
-  Home: '/',
-};
-
 export const memoize = (fn: any) => {
   let cache: any = {};
   return (...args: any) => {
@@ -15,8 +11,6 @@ export const memoize = (fn: any) => {
     }
   };
 };
-
-export { ROUTE_PATH };
 
 export function validateEmail(email: string) {
   //Validates the email address

@@ -18,7 +18,7 @@ export interface FormAuthProps {
 }
 
 function FormAuth(props: FormAuthProps) {
-  const { t } = useTranslation('login');
+  const { t } = useTranslation('common');
   const { valLogin, handleChangeUserName, handleSubmit, handleKeyPress, isLoading } = props;
   const { username, isErrorUserName } = valLogin;
 

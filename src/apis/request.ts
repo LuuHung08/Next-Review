@@ -1,6 +1,8 @@
 import { extend } from 'umi-request';
 import { ENV } from 'src/utils/env';
 import TokenManagement from './TokenManagement';
+import jwtDecode from 'jwt-decode';
+import { getCookies } from 'cookies-next';
 
 const REQ_TIMEOUT = 25 * 1000;
 export const isDev = ENV.NODE_ENV === 'development';
@@ -42,35 +44,44 @@ const injectBearer = (token: string, configs: any) => {
   };
 };
 
+export const getAccessToken = () => {
+  const localInfoObject = getCookies();
+  return localInfoObject.nextToken;
+};
+
 const TokenManager = new TokenManagement({
   isTokenValid: () => {
-    // const localInfo = window?.localStorage.getItem(ENV.LOCAL_STORAGE_KEY as string);
-    // let localInfoObject;
+    try {
+      let decoded: any;
+      const token = getAccessToken();
+      if (token) {
+        decoded = jwtDecode(token);
+      }
+      const { exp } = decoded;
 
-    // if (localInfo) {
-    //   localInfoObject = JSON.parse(localInfo);
-    // }
-    // return !!localInfoObject?.token;
-    return true;
+      const currentTime = Date.now() / 1000;
+
+      if (exp - 5 > currentTime) {
+        return true;
+      }
+
+      return false;
+    } catch (error) {
+      return false;
+    }
+
+    // // check token sap expired truoc' 5s
+    // // dayjs token.exp < now.subtract(30s) => multiple request private1 private2 private3 => 3 lan refresh token
+    // return false goi den ham onRefreshToken
+    // return true => cho phep' lay' token cu~
   },
   getAccessToken: () => {
-    const localInfo = window?.localStorage.getItem(ENV.LOCAL_STORAGE_KEY as string);
-    let localInfoObject;
-
-    if (localInfo) {
-      localInfoObject = JSON.parse(localInfo);
-    }
-
-    return localInfoObject?.token || '';
+    const token = getAccessToken();
+    return `${token}`;
   },
   onRefreshToken(done) {
-    const localInfo = window?.localStorage.getItem(ENV.LOCAL_STORAGE_KEY as string);
-    let localInfoObject;
-    if (localInfo) {
-      localInfoObject = JSON.parse(localInfo);
-    }
-    console.log('localInfoObject', localInfoObject);
-    const refreshToken = localInfoObject?.refreshToken;
+    const localInfo = getCookies();
+    const refreshToken = localInfo?.refreshToken;
     if (!refreshToken) {
       return done(null);
     }
@@ -81,7 +92,6 @@ const TokenManager = new TokenManagement({
         },
       })
       .then((result) => {
-        console.log('result', result);
         if (result.refreshToken && result.accessToken) {
           done(result.accessToken);
           return;
@@ -103,4 +113,4 @@ const privateRequest = async (request: any, suffixUrl: string, configs?: any) =>
   return request(suffixUrl, injectBearer(token, configs));
 };
 
-export { request, privateRequest };
+export { request, privateRequest, TokenManager };

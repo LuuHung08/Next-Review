@@ -1,1 +1,14 @@
-{}
+{
+  "login_title": "Đăng nhập",
+  "logout_title": "Đăng xuất",
+  "login_redirect": "Đăng ký",
+  "login_account": "Tài khoản",
+  "login_pass": "Mật khẩu",
+  "login_input_account": "Nhập tài khoản",
+  "login_input_pass": "Nhập mật khẩu",
+  "login_input_account_please": "Vui lòng nhập tài khoản",
+  "login_input_pass_please": "Vui lòng nhập mật khẩu",
+
+  "home.title": "Trang chủ",
+  "map_title": "Di chuyển đến Map"
+}

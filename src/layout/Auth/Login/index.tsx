@@ -7,7 +7,7 @@ import { initValLogin } from './type';
 import { useTranslation } from 'next-i18next';
 
 const Login = () => {
-  const { t } = useTranslation('login');
+  const { t } = useTranslation('common');
   const { onLogin } = useAuth();
   const [valLogin, setValLogin] = useState(initValLogin);
   const { username, isErrorUserName } = valLogin;
@@ -15,7 +15,7 @@ const Login = () => {
   const requestSignInByEmail = useLogin({
     onSuccess: (r) => {
       if (!r?.accessToken) {
-        toast.error('Tài khoản hoặc mật khẩu không chính xác', {
+        toast.error('Tài khoản không chính xác', {
           theme: 'colored',
         });
         return;
@@ -30,7 +30,7 @@ const Login = () => {
       }
     },
     onError: () => {
-      toast.error('Tài khoản hoặc mật khẩu không chính xác', {
+      toast.error('Tài khoản không chính xác', {
         theme: 'colored',
       });
     },

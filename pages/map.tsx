@@ -1,12 +1,12 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import dynamic from 'next/dynamic';
 import MainLayout from 'src/layout/MainLayout';
-const Login = dynamic(() => import('@layout/Auth/Login'));
+const Map = dynamic(() => import('@layout/Map'));
 
 const SignInPage = () => {
   return (
     <MainLayout>
-      <Login />
+      <Map />
     </MainLayout>
   );
 };

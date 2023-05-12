@@ -1,7 +1,8 @@
+import { ENV } from '@utils/env';
 import { Html, Head, Main, NextScript } from 'next/document';
 import Script from 'next/script';
 
-const mapJsSDK = `https://maps.googleapis.com/maps/api/js?key=${'test'}&libraries=places`;
+const mapJsSDK = `https://maps.googleapis.com/maps/api/js?key=${''}&libraries=places`;
 export default function Document() {
   return (
     <Html>

@@ -5,11 +5,11 @@ import type { NextRequest } from 'next/server';
 const AUTH_PATH: any = { '/sign-in': true, '/sign-up': true, '/forgot-password': true };
 
 //private
-const PATH: any = ['test', 'hi-1'];
+const PATH: any = ['map'];
 
 export async function middleware(request: NextRequest) {
   const { cookies } = request;
-  const token = cookies.get('token');
+  const token = cookies.get('nextToken');
   const url = request.nextUrl.clone();
 
   const isMatchAuthPath = AUTH_PATH[request.nextUrl.pathname];

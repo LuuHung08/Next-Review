@@ -24,6 +24,7 @@ const nextConfig = {
   publicRuntimeConfig: {
     NODE_ENV: process.env.NODE_ENV,
     APP_API_URL: process.env.NEXT_PUBLIC_API_URL_DEV,
+    GOOGLE_MAP_SDK_KEY: process.env.GOOGLE_MAP_SDK_KEY,
   },
   images: {
     minimumCacheTTL: 60,
