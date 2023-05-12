@@ -35,7 +35,7 @@ export default class TokenManagement {
       })();
     });
 
-    event.on('refresh', () => {
+    event.on('refreshing', () => {
       if (this.isRefreshing) {
         return;
       }

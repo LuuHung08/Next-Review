@@ -3,6 +3,9 @@ import { ENV } from 'src/utils/env';
 import TokenManagement from './TokenManagement';
 import jwtDecode from 'jwt-decode';
 import { getCookies } from 'cookies-next';
+import { setAuthCookies } from '@store/auth/useAuth';
+import { API_PATH } from './constant';
+import dayjs from 'dayjs';
 
 const REQ_TIMEOUT = 25 * 1000;
 export const isDev = ENV.NODE_ENV === 'development';
@@ -22,6 +25,15 @@ const injectBearer = (token: string, configs: any) => {
     return {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+    };
+  }
+
+  if (configs.headers?.Authorization) {
+    return {
+      ...configs,
+      headers: {
+        ...configs.headers,
       },
     };
   }
@@ -59,9 +71,16 @@ const TokenManager = new TokenManagement({
       }
       const { exp } = decoded;
 
-      const currentTime = Date.now() / 1000;
+      // const currentTime = Date.now() / 1000;
 
-      if (exp - 5 > currentTime) {
+      // console.log('exp - 5 > currentTime', exp - 5 > currentTime);
+
+      // if (exp - 5 > currentTime) {
+      //   return true;
+      // }
+      const currentTimeNextDay = dayjs().add(1, 'day').unix() - 65;
+
+      if (exp - 30 > currentTimeNextDay) {
         return true;
       }
 
@@ -86,13 +105,17 @@ const TokenManager = new TokenManagement({
       return done(null);
     }
     request
-      .post('/auth/refresh-token', {
+      .post(API_PATH.AUTH_REFRESH_TOKEN, {
         data: {
           refreshToken,
         },
       })
       .then((result) => {
         if (result.refreshToken && result.accessToken) {
+          setAuthCookies({
+            token: result?.accessToken,
+            refreshToken: result?.refreshToken,
+          });
           done(result.accessToken);
           return;
         }
@@ -113,4 +136,4 @@ const privateRequest = async (request: any, suffixUrl: string, configs?: any) =>
   return request(suffixUrl, injectBearer(token, configs));
 };
 
-export { request, privateRequest, TokenManager };
+export { request, privateRequest };

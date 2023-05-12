@@ -52,9 +52,12 @@ const OverlayLang = () => {
 };
 
 const Language = () => {
-  const refShow = useRef(null);
-  const router = useRouter();
   const { t } = useTranslation('common');
+
+  const refShow = useRef(null);
+
+  const router = useRouter();
+
   const [show, setShow] = useState<boolean>(false);
   const langActive = LIST_LANG.find((lang) => lang.value === router.locale);
 

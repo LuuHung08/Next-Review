@@ -13,26 +13,6 @@ function Map() {
     population: number;
   }
 
-  const drawCircle = useCallback((e: any, map: any) => {
-    const citymap: Record<string, City> = {
-      vn: {
-        center: { lat: e.latLng.lat(), lng: e.latLng.lng() },
-        population: 2714856,
-      },
-    };
-
-    return new google.maps.Circle({
-      strokeColor: '#FF0000',
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillColor: '#FF0000',
-      fillOpacity: 0.35,
-      map,
-      center: citymap['vn'].center,
-      radius: Math.sqrt(citymap['vn'].population),
-    });
-  }, []);
-
   const init = useCallback(async () => {
     let map: any;
     const mapEle = document.getElementById('map') as HTMLAnchorElement;
@@ -77,12 +57,43 @@ function Map() {
 
     // INIT Maps: Register parent events
 
+    let circleMap = new google.maps.Circle();
+
+    const drawCircle = (e: any, map: any, circleMap: any) => {
+      const cityMap: Record<string, City> = {
+        vn: {
+          center: { lat: e.latLng.lat(), lng: e.latLng.lng() },
+          population: 2714856,
+        },
+      };
+      console.log('circleMap', circleMap);
+
+      return new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        map,
+        center: cityMap['vn'].center,
+        radius: Math.sqrt(cityMap['vn'].population),
+      });
+    };
+
+    const removeCircleOld = () => {
+      circleMap.setMap(null);
+    };
+
     google.maps.event.addListener(map, 'click', function (e: any) {
       // show default marker
+
+      // if (circleMap) removeCircleOld();
+      removeCircleOld();
+
       pinned.setPosition(e.latLng);
       pinned.setVisible(true);
       locCustomWindow.open(map, pinned);
-      drawCircle(e, map);
+      drawCircle(e, map, circleMap);
       const eLat = { lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) };
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({ location: eLat }, function (results, status) {
@@ -92,14 +103,10 @@ function Map() {
       });
     });
 
-    google.maps.event.addListener(map, 'domready', function () {
-      console.log('chay vay day');
-    });
-
     // ----- END INIT -------------
 
     new MarkerClusterer({ map });
-  }, [currentLocation, drawCircle]);
+  }, [currentLocation]);
 
   useEffect(() => {
     init();

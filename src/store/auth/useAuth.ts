@@ -4,15 +4,14 @@ import { useRecoilState } from 'recoil';
 import { authAtom, IAuth } from './auth';
 import { ROUTE_PATH } from '@constant/index';
 
-export const setAuthCookies = ({
-  token,
-  refreshToken,
-}: {
+interface TokenInfo {
   token: string;
   refreshToken: string;
-}) => {
-  setCookie('nextToken', token);
-  setCookie('refreshToken', refreshToken);
+}
+
+export const setAuthCookies = (values: TokenInfo) => {
+  setCookie('nextToken', values.token);
+  setCookie('refreshToken', values.refreshToken);
 };
 
 export const deleteAuthCookies = () => {
