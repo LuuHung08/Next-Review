@@ -2,23 +2,23 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { MarkerClusterer } from '@googlemaps/markerclusterer';
 import style from './map.module.scss';
 
+interface City {
+  center: google.maps.LatLngLiteral;
+  population: number;
+}
+
 function Map() {
   const [currentLocation] = useState({
     lat: 21.0020772,
     lng: 105.8065682,
   });
 
-  interface City {
-    center: google.maps.LatLngLiteral;
-    population: number;
-  }
-
   const init = useCallback(async () => {
     let map: any;
     const mapEle = document.getElementById('map') as HTMLAnchorElement;
     map = new google.maps.Map(mapEle, {
       center: currentLocation,
-      zoom: 13,
+      zoom: 8,
       zoomControl: true,
       scaleControl: true,
       mapTypeControl: false,
@@ -57,49 +57,74 @@ function Map() {
 
     // INIT Maps: Register parent events
 
-    let circleMap = new google.maps.Circle();
+    // const drawCircle = (e: any, map: any, circleMap: google.maps.Circle) => {
+    //   const areaMap: Record<string, City> = {
+    //     vn: {
+    //       center: { lat: e.latLng.lat(), lng: e.latLng.lng() },
+    //       population: 50000,
+    //     },
+    //   };
 
-    const drawCircle = (e: any, map: any, circleMap: any) => {
-      const cityMap: Record<string, City> = {
-        vn: {
-          center: { lat: e.latLng.lat(), lng: e.latLng.lng() },
-          population: 2714856,
-        },
-      };
-      console.log('circleMap', circleMap);
+    //   let cityCircle;
 
-      return new google.maps.Circle({
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#FF0000',
-        fillOpacity: 0.35,
-        map,
-        center: cityMap['vn'].center,
-        radius: Math.sqrt(cityMap['vn'].population),
-      });
-    };
+    //   for (const area in areaMap) {
+    //     // Add the circle for this city to the map.
+    //     cityCircle = new google.maps.Circle({
+    //       strokeColor: '#FF0000',
+    //       strokeOpacity: 0.8,
+    //       strokeWeight: 2,
+    //       fillColor: '#FF0000',
+    //       fillOpacity: 0.35,
+    //       map,
+    //       center: areaMap[area].center,
+    //       radius: areaMap[area].population,
+    //     });
 
-    const removeCircleOld = () => {
-      circleMap.setMap(null);
-    };
+    //     circleMap.setMap(null);
+    //     // const cityCircle = new google.maps.Circle();
+    //   }
+    //   return cityCircle;
+    // };
+
+    // let circleMap = new google.maps.Circle();
+
+    let circle: google.maps.Circle;
 
     google.maps.event.addListener(map, 'click', function (e: any) {
       // show default marker
-
-      // if (circleMap) removeCircleOld();
-      removeCircleOld();
-
       pinned.setPosition(e.latLng);
       pinned.setVisible(true);
       locCustomWindow.open(map, pinned);
-      drawCircle(e, map, circleMap);
+
+      if (circle && circle.setMap) circle.setMap(null);
+
+      const areaMap: Record<string, City> = {
+        vn: {
+          center: { lat: e.latLng.lat(), lng: e.latLng.lng() },
+          population: 50000,
+        },
+      };
+
       const eLat = { lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) };
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({ location: eLat }, function (results, status) {
         if (results && status == google.maps.GeocoderStatus.OK) {
           locCustomWindow.setContent(locCustomContent(e.latLng, results[1].formatted_address));
-        } else locCustomWindow.setContent(locCustomContent(e.latLng, 'Not address'));
+        } else {
+          locCustomWindow.setContent(locCustomContent(e.latLng, 'Not address'));
+          // drawCircle(e, map, circleMap);
+          // circleMap.setMap(null);
+          circle = new window.google.maps.Circle({
+            strokeColor: '#21a5ff',
+            strokeOpacity: 0.5,
+            strokeWeight: 2,
+            fillColor: '#21a5ff',
+            fillOpacity: 0.5,
+            map: map,
+            center: areaMap['vn'].center,
+            radius: areaMap['vn'].population,
+          });
+        }
       });
     });
 

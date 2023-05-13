@@ -15,7 +15,7 @@ const Login = () => {
   const requestSignInByEmail = useLogin({
     onSuccess: (r) => {
       if (!r?.accessToken) {
-        toast.error('Tài khoản không chính xác', {
+        toast.error(`${t('Incorrect account')}`, {
           theme: 'colored',
         });
         return;
@@ -24,13 +24,13 @@ const Login = () => {
           token: r?.accessToken || '',
           refreshToken: r?.refreshToken,
         });
-        toast.success('Đăng nhập thành công', {
+        toast.success(`${t('Logged in successfully')}`, {
           theme: 'colored',
         });
       }
     },
     onError: () => {
-      toast.error('Tài khoản không chính xác', {
+      toast.error(`${t('Incorrect account')}`, {
         theme: 'colored',
       });
     },

@@ -8,6 +8,8 @@
   "login_input_pass": "Login_input_pass",
   "login_input_account_please": "Login_input_account_please",
   "login_input_pass_please": "Login_input_pass_please",
+  "Incorrect account": "Incorrect account",
+  "Logged in successfully": "Logged in successfully",
 
   "home.title": "Home",
   "map_title": "Next Map"
