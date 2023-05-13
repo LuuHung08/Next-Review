@@ -8,10 +8,6 @@ on:
       - v*
 
 jobs:
-  my_first_job:
-    name: My first job
-  my_second_job:
-    name: My second job
   cancel:
     runs-on: ubuntu-latest
     steps:
