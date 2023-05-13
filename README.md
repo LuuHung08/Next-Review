@@ -148,7 +148,6 @@ export default Home;
       return request(suffixUrl, injectBearer(token, configs));
     };
 
-
 ```
 
 <!-- ![alt](url) -->
@@ -158,6 +157,27 @@ export default Home;
 - event **'refresh'** check dựa vào hàm isTokenValid -> token còn hạn thì lấy token cũ không thì chạy event **'refreshing'** để gọi hàm onRefreshToken lấy token mới về
 
 ## Docker build
+
+1. Cài đặt
+
+2. Run
+
+```bash
+
+FROM node:16-alpine
+
+WORKDIR /app
+
+COPY ./package.json ./
+RUN npm install --legacy-peer-deps
+COPY . .
+RUN npm run build
+
+EXPOSE 3000
+
+CMD npm start
+
+```
 
 ## Google maps (Draw a circle with a radius of 50km around that location)
 
@@ -172,6 +192,7 @@ yarn add @googlemaps/markerclusterer
 - Dựng khung map thông id: map
 
 ```bash
+
 const mapEle = document.getElementById('map') as HTMLAnchorElement;
       map = new google.maps.Map(mapEle, {
         center: currentLocation,
@@ -188,8 +209,6 @@ const mapEle = document.getElementById('map') as HTMLAnchorElement;
         ],
       });
 
-
-
 ```
 
 - Tạo marker khi click
@@ -204,51 +223,51 @@ const mapEle = document.getElementById('map') as HTMLAnchorElement;
 
 ```
 
-- Lắng nghe sự kiện click của google khi click vào vị trí bất kỳ
-  _ Lấy lại lat long và set lại pinned marker mới
-  _ Tạo 1 hình tròn trên map: dùng **new window.google.maps.Circle** để tạo hình tròn
+3. Lắng nghe sự kiện click của google khi click vào vị trí bất kỳ
+   - Lấy lại lat long và set lại pinned marker mới
+   - Tạo 1 hình tròn trên map: dùng **new window.google.maps.Circle** để tạo hình tròn
 
-  ```bash
-      let circle: google.maps.Circle;
+```bash
+    let circle: google.maps.Circle;
 
-      google.maps.event.addListener(map, 'click', function (e: any) {
-        // show default marker
-        pinned.setPosition(e.latLng);
-        pinned.setVisible(true);
-        locCustomWindow.open(map, pinned);  //show popup insfo marker
+    google.maps.event.addListener(map, 'click', function (e: any) {
+      // show default marker
+      pinned.setPosition(e.latLng);
+      pinned.setVisible(true);
+      locCustomWindow.open(map, pinned);  //show popup info marker
 
-        if (circle && circle.setMap) circle.setMap(null);
-        //Khi muốn tạo hình mới thì sẽ xoá hình cũ đi
+      if (circle && circle.setMap) circle.setMap(null);
+      //Khi muốn tạo hình mới thì sẽ xoá hình cũ đi
 
-        const areaMap: Record<string, City> = {
-          vn: {
-            center: { lat: e.latLng.lat(), lng: e.latLng.lng() },
-            population: 50000, //radius: 1609,3,  1 miles in metres -> 50km = 50000
-          },
-        };
+      const areaMap: Record<string, City> = {
+        vn: {
+          center: { lat: e.latLng.lat(), lng: e.latLng.lng() },
+          population: 50000, //radius: 1609,3,  1 miles in metres -> 50km = 50000
+        },
+      };
 
-        const eLat = { lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) };
-        const geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ location: eLat }, function (results, status) {
-          if (results && status == google.maps.GeocoderStatus.OK) {
-            locCustomWindow.setContent(locCustomContent(e.latLng, results[1].formatted_address));
-          } else {
-            locCustomWindow.setContent(locCustomContent(e.latLng, 'Not address'));
+      const eLat = { lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) };
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ location: eLat }, function (results, status) {
+        if (results && status == google.maps.GeocoderStatus.OK) {
+          locCustomWindow.setContent(locCustomContent(e.latLng, results[1].formatted_address));
+        } else {
+          locCustomWindow.setContent(locCustomContent(e.latLng, 'Not address'));
 
-            circle = new window.google.maps.Circle({
-              strokeColor: '#21a5ff',
-              strokeOpacity: 0.5,
-              strokeWeight: 2,
-              fillColor: '#21a5ff',
-              fillOpacity: 0.5,
-              map: map,
-              center: areaMap['vn'].center,
-              radius: areaMap['vn'].population,
-            });
-          }
-        });
+          circle = new window.google.maps.Circle({
+            strokeColor: '#21a5ff',
+            strokeOpacity: 0.5,
+            strokeWeight: 2,
+            fillColor: '#21a5ff',
+            fillOpacity: 0.5,
+            map: map,
+            center: areaMap['vn'].center,
+            radius: areaMap['vn'].population,
+          });
+        }
       });
+    });
 
-  ```
+```
 
 ## CI/CD

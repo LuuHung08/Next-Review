@@ -3,7 +3,7 @@ name: Builder Development
 on:
   push:
     branches:
-      - dev
+      - master
     tags:
       - v*
 
