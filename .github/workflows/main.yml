@@ -8,15 +8,15 @@ on:
       - v*
 
 jobs:
-  cancel:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
+  # cancel:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Cancel Previous Runs
+  #       uses: styfle/cancel-workflow-action@0.9.1
+  #       with:
+  #         access_token: ${{ github.token }}
   deploy:
-    needs: cancel
+    # needs: cancel
     runs-on: ubuntu-latest
 
     steps: 
@@ -46,17 +46,17 @@ jobs:
     #     with:
     #       webhook: ${{ secrets.DISCORD_URL }}
 
-  notifification:
-    needs: deploy
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
+  # notifification:
+  #   needs: deploy
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     packages: write
+  #     contents: read
 
-    steps:
-      - uses: sarisia/actions-status-discord@v1
-        if: always()
-        with:
-          webhook: ${{ secrets.DISCORD_URL }}
-          title: "Merge to branch => auto deploy"
-          description: "Test for: ip or domain application"
+  #   steps:
+  #     - uses: sarisia/actions-status-discord@v1
+  #       if: always()
+  #       with:
+  #         webhook: ${{ secrets.DISCORD_URL }}
+  #         title: "Merge to branch => auto deploy"
+  #         description: "Test for: ip or domain application"
