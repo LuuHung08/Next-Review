@@ -8,23 +8,24 @@ on:
       - v*
 
 jobs:
-  # cancel:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Cancel Previous Runs
-  #       uses: styfle/cancel-workflow-action@0.9.1
-        # with:
-        #   access_token: ${{ github.token }}
+  my_first_job:
+    name: My first job
+  my_second_job:
+    name: My second job
+  cancel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
   deploy:
-    # needs: cancel
+    needs: cancel
     runs-on: ubuntu-latest
 
     steps: 
       - run: |
-            echo "::group::My title"
-            echo "Inside group"
-            echo "::endgroup::"
-
+            echo "Hello @${{ github.actor }}"
 
     # steps:
     #   - name: Deploy
@@ -41,7 +42,7 @@ jobs:
     #         ${{ secrets.GHP }}
     #         npm install
     #         npm run build
-    #         pm2 restart index of instance or name of instance
+    #         pm2 restart index or name of instance
             
     #   - name: On Failure
     #     if: failure()
