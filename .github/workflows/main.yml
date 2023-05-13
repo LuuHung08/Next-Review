@@ -19,28 +19,32 @@ jobs:
     needs: cancel
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          username: ${{ secrets.SSH_USER_NAME }}
-          passphrase: ${{ secrets.SSH_PASS_PHRASE }}
-          port: 22
-          script_stop: true
-          script: |
-            cd ~/workspace/name-instance/
-            ${{ secrets.GHP }}
-            npm install
-            npm run build
-            pm2 restart index of instance or name of instance
+    steps: 
+      - run: echo Hello World
+
+
+    # steps:
+    #   - name: Deploy
+    #     uses: appleboy/ssh-action@master
+    #     with:
+    #       host: ${{ secrets.SSH_HOST }}
+    #       key: ${{ secrets.SSH_PRIVATE_KEY }}
+    #       username: ${{ secrets.SSH_USER_NAME }}
+    #       passphrase: ${{ secrets.SSH_PASS_PHRASE }}
+    #       port: 22
+    #       script_stop: true
+    #       script: |
+    #         cd ~/workspace/name-instance/
+    #         ${{ secrets.GHP }}
+    #         npm install
+    #         npm run build
+    #         pm2 restart index of instance or name of instance
             
-      - name: On Failure
-        if: failure()
-        uses: sarisia/actions-status-discord@v1
-        with:
-          webhook: ${{ secrets.DISCORD_URL }}
+    #   - name: On Failure
+    #     if: failure()
+    #     uses: sarisia/actions-status-discord@v1
+    #     with:
+    #       webhook: ${{ secrets.DISCORD_URL }}
 
   notifification:
     needs: deploy
