@@ -24,11 +24,9 @@ export default class EventEmitter {
   }
 
   emit(eventName: string, ...args: any[]) {
-    this._getEventListByName(eventName).forEach(
-      (fn: (...args: any[]) => void) => {
-        fn.apply(this, args);
-      },
-    );
+    this._getEventListByName(eventName).forEach((fn: (...args: any[]) => void) => {
+      fn.apply(this, args);
+    });
   }
 
   removeListener(eventName: string, fn: (...args: any[]) => void) {

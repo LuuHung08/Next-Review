@@ -103,14 +103,152 @@ module.exports = {
 
 ```
 
+- Dùng trong components
+
+```bash
+
+import { useTranslation } from 'next-i18next';
+import styles from './index.module.scss';
+
+function Home() {
+  const { t } = useTranslation('common');
+
+  // dùng nhiều file json: useTranslation(['common', 'home', ...])
+
+  return (
+    <div className={styles.buttonHome}>
+      {t('map_title')}
+    </div>
+  );
+}
+
+export default Home;
+
+```
+
 ## Handle Token refresh token
+
+1. Tạo constructor có 3 hàm : isTokenValid, getAccessToken, onRefreshToken
+
+- isTokenValid: kiểm tra token đã hết hạn hay chưa
+- getAccessToken: lấy token
+- onRefreshToken: call api lấy lại token mới thông qua refresh token
+
+2. Luồng hoạt động
+
+- Khi có request private thì sẽ gọi đến hàm getToken
+
+```bash
+
+  const privateRequest = async (request: any, suffixUrl: string, configs?: any) => {
+      const token: string = configs?.token
+        ? configs?.token
+        : ((await TokenManager.getToken()) as string);
+
+      return request(suffixUrl, injectBearer(token, configs));
+    };
+
+
+```
+
+<!-- ![alt](url) -->
+
+- Hàm getToken sẽ check xem token còn hạn hay chưa thông qua event **'refreshDone'** -> lấy token cũ, ngược lại thông qua event **'refresh'**
+
+- event **'refresh'** check dựa vào hàm isTokenValid -> token còn hạn thì lấy token cũ không thì chạy event **'refreshing'** để gọi hàm onRefreshToken lấy token mới về
 
 ## Docker build
 
 ## Google maps (Draw a circle with a radius of 50km around that location)
 
+1. Cài đặt
+
 ```md
+yarn add @googlemaps/markerclusterer
+```
+
+2. Tạo init map
+
+- Dựng khung map thông id: map
+
+```bash
+const mapEle = document.getElementById('map') as HTMLAnchorElement;
+      map = new google.maps.Map(mapEle, {
+        center: currentLocation,
+        zoom: 8,
+        zoomControl: true,
+        scaleControl: true,
+        mapTypeControl: false,
+        styles: [
+          {
+            featureType: 'poi',
+            elementType: 'labels',
+            stylers: [{ visibility: 'off' }],
+          },
+        ],
+      });
+
+
 
 ```
+
+- Tạo marker khi click
+
+```bash
+
+ const pinned = new google.maps.Marker({
+        position: currentLocation,
+        map: map,
+        visible: false,
+      });
+
+```
+
+- Lắng nghe sự kiện click của google khi click vào vị trí bất kỳ
+  _ Lấy lại lat long và set lại pinned marker mới
+  _ Tạo 1 hình tròn trên map: dùng **new window.google.maps.Circle** để tạo hình tròn
+
+  ```bash
+      let circle: google.maps.Circle;
+
+      google.maps.event.addListener(map, 'click', function (e: any) {
+        // show default marker
+        pinned.setPosition(e.latLng);
+        pinned.setVisible(true);
+        locCustomWindow.open(map, pinned);  //show popup insfo marker
+
+        if (circle && circle.setMap) circle.setMap(null);
+        //Khi muốn tạo hình mới thì sẽ xoá hình cũ đi
+
+        const areaMap: Record<string, City> = {
+          vn: {
+            center: { lat: e.latLng.lat(), lng: e.latLng.lng() },
+            population: 50000, //radius: 1609,3,  1 miles in metres -> 50km = 50000
+          },
+        };
+
+        const eLat = { lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) };
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ location: eLat }, function (results, status) {
+          if (results && status == google.maps.GeocoderStatus.OK) {
+            locCustomWindow.setContent(locCustomContent(e.latLng, results[1].formatted_address));
+          } else {
+            locCustomWindow.setContent(locCustomContent(e.latLng, 'Not address'));
+
+            circle = new window.google.maps.Circle({
+              strokeColor: '#21a5ff',
+              strokeOpacity: 0.5,
+              strokeWeight: 2,
+              fillColor: '#21a5ff',
+              fillOpacity: 0.5,
+              map: map,
+              center: areaMap['vn'].center,
+              radius: areaMap['vn'].population,
+            });
+          }
+        });
+      });
+
+  ```
 
 ## CI/CD

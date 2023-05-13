@@ -14,12 +14,10 @@
   },
   "dependencies": {
     "@googlemaps/markerclusterer": "^2.0.15",
-    "@types/google-map-react": "^2.1.7",
     "ahooks": "^3.5.1",
     "classnames": "^2.3.1",
     "cookies-next": "^2.1.1",
     "dayjs": "^1.11.4",
-    "google-map-react": "^2.2.0",
     "intercept-stdout": "^0.1.2",
     "jwt-decode": "^3.1.2",
     "next": "12.3.1",
