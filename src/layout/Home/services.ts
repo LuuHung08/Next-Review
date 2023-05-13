@@ -16,7 +16,7 @@ interface ListPost {
 export const useGetListPost = (options?: HandleEvent) => {
   return useRequest(
     async (params: ListPost) => {
-      return privateRequest(request.get, API_PATH.LIST_POST, {
+      return privateRequest(request.get, API_PATH.LIST_POSTS, {
         params,
       });
     },

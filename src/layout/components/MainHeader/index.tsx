@@ -19,21 +19,19 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <div className={style.mainHeader}>
-        <Image src='/static/images/logo-user.png' width={45} height={45} alt='logo-user' />
-        <>
-          <Language />
-          {router.pathname === ROUTE_PATH.SIGN_IN ? (
-            <Button
-              type='submit'
-              text={<CustomLink href={ROUTE_PATH.HOME}>{t('home.title')}</CustomLink>}
-            />
-          ) : (
-            <Button type='submit' text={t('logout_title')} handleSubmit={handleSubmitLogout} />
-          )}
-        </>
-      </div>
+    <header className={style.mainHeader}>
+      <Image src='/static/images/logo-user.png' width={45} height={45} alt='logo-user' />
+      <>
+        <Language />
+        {router.pathname === ROUTE_PATH.SIGN_IN ? (
+          <Button
+            type='submit'
+            text={<CustomLink href={ROUTE_PATH.HOME}>{t('home.title')}</CustomLink>}
+          />
+        ) : (
+          <Button type='submit' text={t('logout_title')} handleSubmit={handleSubmitLogout} />
+        )}
+      </>
     </header>
   );
 };

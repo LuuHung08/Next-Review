@@ -271,3 +271,5 @@ const mapEle = document.getElementById('map') as HTMLAnchorElement;
 ```
 
 ## CI/CD
+
+![alt](https://resources.github.com/assets/img/ci-cd/mabl.png)
