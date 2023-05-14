@@ -73,8 +73,6 @@ const TokenManager = new TokenManagement({
 
       // const currentTime = Date.now() / 1000;
 
-      // console.log('exp - 5 > currentTime', exp - 5 > currentTime);
-
       // if (exp - 5 > currentTime) {
       //   return true;
       // }

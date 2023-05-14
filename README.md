@@ -158,24 +158,51 @@ export default Home;
 
 ## Docker build
 
-1. Cài đặt
-
-2. Run
+1. Cấu trúc
 
 ```bash
 
+# Use the official image as a parent image.
 FROM node:16-alpine
 
+# Set the working directory.
 WORKDIR /app
 
+# Copy the file from your host to your current location.
 COPY ./package.json ./
+
+
 RUN npm install --legacy-peer-deps
+
+# Copy the rest of your app's source code from your host to your image filesystem.
 COPY . .
+
+# Run the command inside your image filesystem.
 RUN npm run build
 
+# Inform Docker that the container is listening on the specified port at runtime.
 EXPOSE 3000
 
+# Run the specified command within the container.
 CMD npm start
+
+```
+
+2. Run
+
+- Tạo image mới
+
+```bash
+
+docker build -t name-image .
+
+```
+
+- Run image
+
+```bash
+
+docker run -p 3000:3000 name-image
 
 ```
 
@@ -189,7 +216,7 @@ yarn add @googlemaps/markerclusterer
 
 2. Tạo init map
 
-- Dựng khung map thông id: map
+- Dựng khung map:
 
 ```bash
 
