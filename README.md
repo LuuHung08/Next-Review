@@ -216,6 +216,16 @@ docker image ls
 
 ```
 
+- stop image
+
+```bash
+
+//docker ps -> get container_id
+
+docker stop container_id
+
+```
+
 ## Google maps (Draw a circle with a radius of 50km around that location)
 
 1. Cài đặt

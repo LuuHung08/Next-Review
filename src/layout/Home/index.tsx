@@ -22,6 +22,7 @@ function Home() {
         type='submit'
         text={<CustomLink href={ROUTE_PATH.MAP}>{t('map_title')}</CustomLink>}
       />
+      <div>Test pull code docker</div>
     </div>
   );
 }

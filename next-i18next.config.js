@@ -6,7 +6,7 @@ module.exports = {
     locales: ['vi', 'en'],
     // localeDetection: ,
   },
-  // reloadOnPrerender: process.env.NODE_ENV === 'development',
+  reloadOnPrerender: process.env.NODE_ENV === 'development',
   localePath: path.resolve('./public/locales'),
   fallbackLng: ['vi'],
 };
