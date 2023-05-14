@@ -158,6 +158,8 @@ export default Home;
 
 ## Docker build
 
+- Concept: Docker is a way to package software so it can run on any hardware".
+
 1. Cấu trúc
 
 ```bash
@@ -203,6 +205,14 @@ docker build -t name-image .
 ```bash
 
 docker run -p 3000:3000 name-image
+
+```
+
+- watch list images
+
+```bash
+
+docker image ls
 
 ```
 
