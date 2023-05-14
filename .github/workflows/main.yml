@@ -18,6 +18,8 @@ jobs:
   deploy:
     # needs: cancel
     runs-on: ubuntu-latest
+    container: 
+      image: hung-test-image
 
     steps: 
       - run: |
