@@ -19,7 +19,7 @@ jobs:
     # needs: cancel
     runs-on: ubuntu-latest
     container: 
-      image: hung-test-image
+      image: hung-test-docker
 
     steps: 
       - run: |
