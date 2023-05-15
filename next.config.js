@@ -9,7 +9,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   // i18n
   i18n,
-  swcMinify: false,
+  swcMinify: true,
 
   // config env
   publicRuntimeConfig: {
