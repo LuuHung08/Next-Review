@@ -319,8 +319,6 @@ const mapEle = document.getElementById('map') as HTMLAnchorElement;
 
 ## CI/CD
 
-![alt](https://resources.github.com/assets/img/ci-cd/mabl.png)
-
 ![alt](https://www.nginx.com/wp-content/uploads/2020/09/ci-cd-process_entire.png)
 
 [Link cicd with nginx](https://www.nginx.com/blog/introducing-cicd-with-nginx-and-nginx-plus/)
