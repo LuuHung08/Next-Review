@@ -324,3 +324,52 @@ const mapEle = document.getElementById('map') as HTMLAnchorElement;
 ![alt](https://www.nginx.com/wp-content/uploads/2020/09/ci-cd-process_entire.png)
 
 [Link cicd with nginx](https://www.nginx.com/blog/introducing-cicd-with-nginx-and-nginx-plus/)
+
+1.  with github actions pm2 from nginx
+
+- Tạo file
+
+```bash
+
+  .github/workflows/main.yml
+
+```
+
+- Cấu trúc file
+
+```bash
+
+  - name: name action
+
+  - on: push thông qua nhánh cần
+
+  - job: các job chạy
+    + cancel: Chạy xem có lỗi gì không thông qua token của github
+    + deploy:
+      __ cần chạy qua job cancel false -> cancel, true -> continue
+      __ run-on: chạy qua hệ điều hành: ubuntu-latest
+      __ steps:
+        Deploy
+         host: ip server
+         username: default is root
+         key: private key machine under local
+         port: default port 22
+         script: cd to forder -> git pull -> install -> build -> restart instance
+        Failure -> noti github action of webhook
+
+    notifification: noti github action of webhook true | false
+
+
+  //Để key public lên trên con server để mỗi lần push code lên git, key trên server check vs private key trên github xem đúng không
+  -> chạy các steps ở job
+  <- cancel note err
+
+
+
+
+
+
+
+
+
+```
