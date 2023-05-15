@@ -18,8 +18,6 @@ jobs:
   deploy:
     # needs: cancel
     runs-on: ubuntu-latest
-    container: 
-      image: hung-test-docker
 
     steps: 
       # - run: |
@@ -36,11 +34,11 @@ jobs:
           port: 22
           script_stop: true
           script: |
-            cd ~/workspace/name-instance/
+            cd ~/workspace/Next-Review/
             ${{ secrets.GHP }}
             npm install
             npm run build
-            pm2 restart index or name of instance
+            pm2 restart next-review
             
       - name: On Failure
         if: failure()
