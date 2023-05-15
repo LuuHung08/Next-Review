@@ -11,10 +11,6 @@ const nextConfig = {
   i18n,
   swcMinify: true,
 
-  experimental: {
-    forceSwcTransforms: true,
-  },
-
   // config env
   publicRuntimeConfig: {
     NODE_ENV: process.env.NODE_ENV,
