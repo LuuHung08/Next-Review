@@ -339,7 +339,7 @@ const mapEle = document.getElementById('map') as HTMLAnchorElement;
 
   - name: name action
 
-  - on: push thông qua nhánh cần
+  - on: push branch checkout on server
 
   - job: các job chạy
     + cancel: Chạy xem có lỗi gì không thông qua token của github
@@ -358,7 +358,7 @@ const mapEle = document.getElementById('map') as HTMLAnchorElement;
     notifification: noti github action of webhook true | false
 
 
-  //Để key public lên trên con server để mỗi lần push code lên git, key trên server check vs private key trên github xem đúng không
+  //Đặt key public lên trên con server để mỗi lần push code lên git, key trên server check vs private key trên github xem đúng không
   -> chạy các steps ở job
   <- cancel note err
 
