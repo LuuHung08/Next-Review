@@ -32,7 +32,7 @@ jobs:
           script: |
             cd ~/workspace/Next-Review/
             ${{ secrets.GHP }}
-            npm install
+            npm install --unsafe-perm
             npm run build
             pm2 restart next-review
             
