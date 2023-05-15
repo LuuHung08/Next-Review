@@ -5,7 +5,6 @@ import jwtDecode from 'jwt-decode';
 import { getCookies } from 'cookies-next';
 import { setAuthCookies } from '@store/auth/useAuth';
 import { API_PATH } from './constant';
-import dayjs from 'dayjs';
 
 const REQ_TIMEOUT = 25 * 1000;
 export const isDev = ENV.NODE_ENV === 'development';
@@ -71,14 +70,9 @@ const TokenManager = new TokenManagement({
       }
       const { exp } = decoded;
 
-      // const currentTime = Date.now() / 1000;
+      const currentTime = Date.now() / 1000;
 
-      // if (exp - 5 > currentTime) {
-      //   return true;
-      // }
-      const currentTimeNextDay = dayjs().add(1, 'day').unix() - 65;
-
-      if (exp - 30 > currentTimeNextDay) {
+      if (exp - 5 > currentTime) {
         return true;
       }
 
@@ -86,11 +80,6 @@ const TokenManager = new TokenManagement({
     } catch (error) {
       return false;
     }
-
-    // // check token sap expired truoc' 5s
-    // // dayjs token.exp < now.subtract(30s) => multiple request private1 private2 private3 => 3 lan refresh token
-    // return false goi den ham onRefreshToken
-    // return true => cho phep' lay' token cu~
   },
   getAccessToken: () => {
     const token = getAccessToken();
