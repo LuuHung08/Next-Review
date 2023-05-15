@@ -5,20 +5,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-const compiler =
-  process.env.NODE_ENV === 'development'
-    ? {}
-    : {
-        removeConsole: {
-          exclude: ['error'],
-        },
-      };
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // i18n
   i18n,
-  swcMinify: true,
+  swcMinify: false,
 
   // config env
   publicRuntimeConfig: {
@@ -34,7 +25,6 @@ const nextConfig = {
   httpAgentOptions: {
     keepAlive: false,
   },
-  compiler,
   headers: async function headers() {
     if (process.env.NODE_ENV === 'development') return [];
     return [
