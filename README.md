@@ -360,7 +360,7 @@ Link ip: http://103.148.57.94:3000/
     notifification: noti github action of webhook true | false
 
 
-  //Đặt key public lên trên con server để mỗi lần push code lên git, key trên server check vs private key trên github xem đúng không
+  //Đặt key public lên trên con server để mỗi lần push code lên git, public key đặt trên server check vs private key trên github xem đúng không
   -> chạy các steps ở job
   <- cancel note err
 
