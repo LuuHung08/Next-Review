@@ -1,5 +1,9 @@
 # Nextjs + Handle fresh token, custom map, and build docker
 
+## Link web
+
+Link: https://hunglv.online
+
 ## Getting Started
 
 First, run the development server:
@@ -318,8 +322,6 @@ const mapEle = document.getElementById('map') as HTMLAnchorElement;
 ```
 
 ## CI/CD
-
-Link ip: http://103.148.57.94:3000/
 
 ![alt](https://www.nginx.com/wp-content/uploads/2020/09/ci-cd-process_entire.png)
 
