@@ -55,4 +55,4 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_URL }}
           title: "Merge to branch master => auto deploy"
-          description: "Test for: ip or domain application"
+          description: "Test for: hunglv.online"
