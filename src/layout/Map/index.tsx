@@ -56,7 +56,7 @@ function Map() {
           `;
       };
 
-      let circle: google.maps.Circle;
+      let circle = new google.maps.Circle();
 
       google.maps.event.addListener(map, 'click', function (e: any) {
         // show default marker
@@ -64,12 +64,16 @@ function Map() {
         pinned.setVisible(true);
         locCustomWindow.open(map, pinned);
 
-        if (circle && circle.setMap) circle.setMap(null);
+        if (circle && circle.setMap) {
+          circle.setMap(null);
+        }
+
+        console.log({ ...e });
 
         const areaMap: Record<string, City> = {
           vn: {
             center: { lat: e.latLng.lat(), lng: e.latLng.lng() },
-            population: 50000,
+            population: 5000,
           },
         };
 
