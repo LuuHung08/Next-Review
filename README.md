@@ -4,6 +4,10 @@
 
 Link: https://hunglv.online
 
+## My profile
+
+Link: http://134.209.103.144/
+
 ## Getting Started
 
 First, run the development server:
@@ -366,12 +370,37 @@ const mapEle = document.getElementById('map') as HTMLAnchorElement;
   -> chạy các steps ở job
   <- cancel note err
 
+```
+
+## Run docker on server
+
+```bash
+
+  - sửa code local -> build image with tag new
+  - commit tag name on docker hub
+  - push name image
+
+  - docker build -t name-iamge .
+
+  - docker run -it -d -p --name name-test 3000:3000 name-image:tag
+
+  - docker commit name-test name-image:tag
+
+  - docker push name-image:tag
 
 
+  - On server
+
+  - docker pull name-image:tag
+
+  - docker run -d -p --name name-test 3000:3000 name-image:tag
 
 
+  // Xem forder code on docker image
 
-
+  docker exec -it name-container sh | bash
 
 
 ```
+
+## Cicd docker and nginx

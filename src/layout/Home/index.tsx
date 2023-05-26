@@ -22,7 +22,14 @@ function Home() {
         type='submit'
         text={<CustomLink href={ROUTE_PATH.MAP}>{t('map_title')}</CustomLink>}
       />
-      <h1>Test docker</h1>
+      <a
+        className={styles.buttonProfile}
+        href={'http://134.209.103.144'}
+        target='_blank'
+        rel='noreferrer'
+      >
+        <h2>My profile</h2>
+      </a>
     </div>
   );
 }
