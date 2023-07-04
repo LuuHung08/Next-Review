@@ -95,7 +95,7 @@ on:
     tags:
       - v*
   schedule:
-    - cron: "*/1 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
     inputs:
       logLevel:
