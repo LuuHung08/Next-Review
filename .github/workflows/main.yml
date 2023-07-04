@@ -1,64 +1,4 @@
-# run-name: Deploy to ${{ github.event_name }} by @${{ github.actor }}
-
-# on:
-#   push:
-#     branches:
-#       - dev
-#     tags:
-#       - v*
-
-# jobs:
-#   cancel:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Cancel Previous Runs
-#         uses: styfle/cancel-workflow-action@0.9.1
-#         with:
-#           access_token: ${{ github.token }}
-#   deploy:
-#     needs: cancel
-#     runs-on: ubuntu-latest
-
-#     steps:
-#       - name: Deploy
-#         uses: appleboy/ssh-action@master
-#         with:
-#           host: ${{ secrets.SSH_HOST }}
-#           key: ${{ secrets.SSH_PRIVATE_KEY }}
-#           username: ${{ secrets.SSH_USER_NAME }}
-#           passphrase: ${{ secrets.SSH_PASS_PHRASE }}
-#           port: 22
-#           script_stop: true
-#           script: |
-#             cd ~/workspace/Next-Review/
-#             ${{ secrets.GHP }}
-#             npm install
-#             npm run build
-#             pm2 restart 0
-            
-#       - name: On Failure
-#         if: failure()
-#         uses: sarisia/actions-status-discord@v1
-#         with:
-#           webhook: ${{ secrets.DISCORD_URL }}
-
-#   notifification:
-#     needs: deploy
-#     runs-on: ubuntu-latest
-#     permissions:
-#       packages: write
-#       contents: read
-
-#     steps:
-#       - uses: sarisia/actions-status-discord@v1
-#         if: always()
-#         with:
-#           webhook: ${{ secrets.DISCORD_URL }}
-#           title: "Merge to branch master => auto deploy"
-#           description: "Test for: hunglv.online"
-
-
-name: Daily Reminder
+run-name: Deploy to ${{ github.event_name }} by @${{ github.actor }}
 
 on:
   push:
@@ -66,12 +6,44 @@ on:
       - dev
     tags:
       - v*
-  schedule:
-    - cron: "45 10 * * 1-5"
-  workflow_dispatch:
 
 jobs:
+  cancel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+  deploy:
+    needs: cancel
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          username: ${{ secrets.SSH_USER_NAME }}
+          passphrase: ${{ secrets.SSH_PASS_PHRASE }}
+          port: 22
+          script_stop: true
+          script: |
+            cd ~/workspace/Next-Review/
+            ${{ secrets.GHP }}
+            npm install
+            npm run build
+            pm2 restart 0
+            
+      - name: On Failure
+        if: failure()
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_URL }}
+
   notifification:
+    needs: deploy
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -82,4 +54,5 @@ jobs:
         if: always()
         with:
           webhook: ${{ secrets.DISCORD_URL }}
-          content: "Anh em nhớ log time nhé, Tks !!!"
+          title: "Merge to branch master => auto deploy"
+          description: "Test for: hunglv.online"
