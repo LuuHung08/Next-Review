@@ -57,15 +57,20 @@
 #           title: "Merge to branch master => auto deploy"
 #           description: "Test for: hunglv.online"
 
+name: Daily Reminder
+
 on:
-  push:
-    branches:
-      - dev
-    tags:
-      - v*
+  schedule:
+    - cron: "55 10 * * 1-5"
+  workflow_dispatch:
 
 jobs:
   notifification:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
     steps:
         - uses: sarisia/actions-status-discord@v1
         if: always()
