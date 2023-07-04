@@ -107,17 +107,17 @@ jobs:
 
     steps:
       - uses: sarisia/actions-status-discord@v1
-      if: always()
-      with:
-        webhook: ${{ secrets.DISCORD_URL }}
-        status: ${{ job.status }}
-        content: "Hey Anh Chị Em"
-        title: "deploy"
-        description: "Nhớ log time nhé <33"
-        image: ${{ secrets.AVATAR_URL }}
-        color: 0x0000ff
-        url: "https://github.com/sarisia/actions-status-discord"
-        username: GitHub Actions
-        avatar_url: ${{ secrets.AVATAR_URL }}
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_URL }}
+          status: ${{ job.status }}
+          content: "Hey Anh Chị Em"
+          title: "deploy"
+          description: "Nhớ log time nhé <33"
+          image: ${{ secrets.AVATAR_URL }}
+          color: 0x0000ff
+          url: "https://github.com/sarisia/actions-status-discord"
+          username: GitHub Actions
+          avatar_url: ${{ secrets.AVATAR_URL }}
 
 
