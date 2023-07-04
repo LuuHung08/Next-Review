@@ -89,6 +89,11 @@
 name: Daily Reminder
 
 on:
+  push:
+    branches:
+      - dev
+    tags:
+      - v*
   schedule:
     - cron: "55 10 * * 1-5"
   workflow_dispatch:
