@@ -95,7 +95,7 @@ on:
     tags:
       - v*
   schedule:
-    - cron: '32 13 * * *'
+    - cron: "0 */1 * * *"
   workflow_dispatch:
 
 jobs:
