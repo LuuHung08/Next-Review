@@ -95,7 +95,7 @@ on:
     tags:
       - v*
   schedule:
-    - cron: "*/2 * * * *"
+    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       n:
