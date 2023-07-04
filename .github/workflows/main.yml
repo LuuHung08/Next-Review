@@ -95,7 +95,7 @@ on:
     tags:
       - v*
   schedule:
-    - cron: "55 10 * * 1-5"
+    - cron: "*/5 * * * * /path/to/your/command"
   workflow_dispatch:
 
 jobs:
