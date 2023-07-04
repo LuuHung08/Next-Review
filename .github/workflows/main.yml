@@ -104,6 +104,7 @@ on:
         default: 'warning'
         type: choice
         options:
+        - create
         - info
         - warning
         - debug
