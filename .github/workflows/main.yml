@@ -95,7 +95,7 @@ on:
     tags:
       - v*
   schedule:
-    - cron: "*/5 * * * * /path/to/your/command"
+    - cron: "*/5 * * * * *"
   workflow_dispatch:
 
 jobs:
@@ -111,8 +111,8 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_URL }}
           status: ${{ job.status }}
-          content: "Hey Anh Chị Em"
-          title: "deploy"
+          content: "Hey Anh Chị Em Nhớ Log Time nhé <33"
+          title: "Release"
           description: "Nhớ log time nhé <33"
           image: ${{ secrets.AVATAR_URL }}
           color: 0x0000ff
