@@ -107,9 +107,17 @@ jobs:
 
     steps:
       - uses: sarisia/actions-status-discord@v1
-        if: always()
-        with:
-          webhook: ${{ secrets.DISCORD_URL }}
-          content: "Remember to do daily report on excel sheet https://docs.google.com/spreadsheets/d/1EOwz4gBIzy4kIRR2D6ViwO6_eNVFYP25IlZVg4_xLew/edit#gid=752255795"
+      if: always()
+      with:
+        webhook: ${{ secrets.DISCORD_URL }}
+        status: ${{ job.status }}
+        content: "Hey Anh Chị Em"
+        title: "deploy"
+        description: "Nhớ log time nhé <33"
+        image: ${{ secrets.AVATAR_URL }}
+        color: 0x0000ff
+        url: "https://github.com/sarisia/actions-status-discord"
+        username: GitHub Actions
+        avatar_url: ${{ secrets.AVATAR_URL }}
 
 
