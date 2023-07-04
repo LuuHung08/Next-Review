@@ -95,19 +95,8 @@ on:
     tags:
       - v*
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/20 * * * *'
   workflow_dispatch:
-    inputs:
-      n:
-        description: Magic number
-        type: number
-        default: 0
-        required: false
-      greeting:
-        description: A greeting message
-        type: string
-        default: ''
-        required: false
 
 jobs:
   notifification:
